@@ -13,9 +13,8 @@ In the folder [data](https://drive.google.com/drive/folders/1fPqe5gvea7AtnlgAdFL
 ## Project Set up
 
 <p align="center">
-  <img src="https://github.com/flaviobarbosaisi/Jetson-Obj-Security/blob/main/data/setup1.jpeg" width="256" height="455">
-  <img src="https://github.com/flaviobarbosaisi/Jetson-Obj-Security/blob/main/data/setup2.jpeg" width="256" height="455">
-  <img src="screen3.png" width="256" height="455">
+  <img src="https://github.com/flaviobarbosaisi/Jetson-Obj-Security/blob/main/data/setup1.jpeg" width="256" height="256">
+  <img src="https://github.com/flaviobarbosaisi/Jetson-Obj-Security/blob/main/data/setup2.jpeg" width="256" height="256">
 </p>
 
 
