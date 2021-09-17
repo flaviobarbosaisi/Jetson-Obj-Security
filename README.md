@@ -5,8 +5,8 @@
 The idea of this project is to develop a monitoring system for an object of interest through a Logitech C920E Business FullHD 1080p 960-001360 webcam  and a NVIDIA Jetson Xavier™ NX. The system should classify as high risk if someone gets within 1 meter of the object, medium risk between 1 and 1.25 meters and safe at a distance greater than 1.25 meters. We can imagine that this is a valuable or even dangerous object that you want to monitor.
 
 <p align="center">
- <img src="https://github.com/flaviobarbosaisi/Jetson-Obj-Security/blob/main/data/result_safe.jpeg">
- <img src="https://github.com/flaviobarbosaisi/Jetson-Obj-Security/blob/main/data/result_danger.jpeg">
+ <img src="https://github.com/flaviobarbosaisi/Jetson-Obj-Security/blob/main/data/result_safe.jpeg" width="416" height="416">
+ <img src="https://github.com/flaviobarbosaisi/Jetson-Obj-Security/blob/main/data/result_danger.jpeg" width="416" height="416">
 </p>
 
 
