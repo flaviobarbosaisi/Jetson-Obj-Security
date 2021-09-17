@@ -9,7 +9,7 @@ The idea of this project is to develop a monitoring system for an object of inte
 In the folder [data](https://drive.google.com/drive/folders/1fPqe5gvea7AtnlgAdFLNLum493Efg4Wu?usp=sharing), there is an informative presentation of the project, the YOLOv4 weights that should be placed in the "**model**" folder, dataset examples and runtime videos. These videos feature videos of Jetson's screen and the resulting videos from the monitoring.
 
 <p align="center">
-![alt text](https://github.com/flaviobarbosaisi/Jetson-Obj-Security/blob/main/data/structure.jpeg)
+ <img src="https://github.com/flaviobarbosaisi/Jetson-Obj-Security/blob/main/data/structure.jpeg">
 </p>
 
 ## Project Set up
