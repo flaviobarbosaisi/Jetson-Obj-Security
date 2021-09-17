@@ -43,7 +43,7 @@ The dataset was created with 10 videos of me walking around and moving the objec
 
 ## Training
 
-YOLOv4 training took place on a dgx A100. 827 images were used for training and 100 for testing. The training parameters and evaluations are presented below.
+YOLOv4 training took place on a dgx A100. 827 images were used for training and 100 for testing. 
 
 ## Results and conclusion
 
