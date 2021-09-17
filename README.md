@@ -12,7 +12,8 @@ In the folder [data](https://drive.google.com/drive/folders/1fPqe5gvea7AtnlgAdFL
 
 ## Project Set up
 
-![alt text](https://github.com/flaviobarbosaisi/Jetson-Obj-Security/blob/main/data/setup1.jpeg)(https://github.com/flaviobarbosaisi/Jetson-Obj-Security/blob/main/data/setup2.jpeg)
+![alt text](https://github.com/flaviobarbosaisi/Jetson-Obj-Security/blob/main/data/setup1.jpeg)
+<a href="url"><img src="https://github.com/flaviobarbosaisi/Jetson-Obj-Security/blob/main/data/setup2.jpeg" align="left" height="48" width="48" ></a>
 
    - The screen, mouse and keyboards were used for calibration and visualization.
    - The first step was to set up jetson with JetPack following the instructions from the Jetson AI Fundamentals course (First Time Setup with JetPack).
