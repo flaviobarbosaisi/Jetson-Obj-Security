@@ -23,7 +23,7 @@ FIG 1 e 2
 The dataset was created with 10 videos of me walking around and moving the object of interest through the region of interest (ROI). As we are still in a pandemic period in my country, the class “person” were made only considering me, but this can be easily expanded with new videos and expansion of the dataset for better generalization of the "person" class. [Labelimg](https://github.com/tzutalin/labelImg) was used to create the labels.
 
 
-FIG
+![alt text](https://github.com/flaviobarbosaisi/Jetson-Obj-Security/blob/main/data/dataset.jpeg)
 
 ## Training
 
@@ -35,7 +35,7 @@ The video results can be found [here](https://drive.google.com/drive/folders/19S
 
 ## Usage
 
-Download the yolo weights from [here] (https://drive.google.com/file/d/1z_uqgPwsyQbfoNpk4vHIo8IXTZcSX9wr/view?usp=sharing) and place in the "**model**" folder. Modify the *FILE_PATH* variable to zero to access the usb webcam and *SUB_PATH* to the model directory. In case of testing with recorded video, modify *FILE_PATH* variable to the specific video path. There is a sample [here]().
+Download the yolo weights from [here](https://drive.google.com/file/d/1z_uqgPwsyQbfoNpk4vHIo8IXTZcSX9wr/view?usp=sharing) and place in the "**model**" folder. Modify the *FILE_PATH* variable to zero to access the usb webcam and *SUB_PATH* to the model directory. In case of testing with recorded video, modify *FILE_PATH* variable to the specific video path. There is a sample [here]().
 
 
 
