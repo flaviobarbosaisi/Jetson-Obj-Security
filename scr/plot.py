@@ -9,76 +9,19 @@ import numpy as np
 # Red: High Risk
 # Yellow: Low Risk
 # Green: No Risk
-def bird_eye_view(frame, distances_mat, bottom_points, scale_w, scale_h, risk_count):
-    h = frame.shape[0]
-    w = frame.shape[1]
 
-    red = (0, 0, 255)
-    green = (0, 255, 0)
-    yellow = (0, 255, 255)
-    white = (200, 200, 200)
-
-    blank_image = np.zeros((int(h * scale_h), int(w * scale_w), 3), np.uint8)
-    blank_image[:] = white
-    warped_pts = []
-    r = []
-    g = []
-    y = []
-    for i in range(len(distances_mat)):
-
-        if distances_mat[i][2] == 0:
-            if (distances_mat[i][0] not in r) and (distances_mat[i][0] not in g) and (distances_mat[i][0] not in y):
-                r.append(distances_mat[i][0])
-            if (distances_mat[i][1] not in r) and (distances_mat[i][1] not in g) and (distances_mat[i][1] not in y):
-                r.append(distances_mat[i][1])
-
-            blank_image = cv2.line(blank_image, (int(distances_mat[i][0][0] * scale_w), int(distances_mat[i][0][1] * scale_h)), (int(distances_mat[i][1][0] * scale_w), int(distances_mat[i][1][1]* scale_h)), red, 2)
-            
-    for i in range(len(distances_mat)):
-                
-        if distances_mat[i][2] == 1:
-            if (distances_mat[i][0] not in r) and (distances_mat[i][0] not in g) and (distances_mat[i][0] not in y):
-                y.append(distances_mat[i][0])
-            if (distances_mat[i][1] not in r) and (distances_mat[i][1] not in g) and (distances_mat[i][1] not in y):
-                y.append(distances_mat[i][1])
-        
-            blank_image = cv2.line(blank_image, (int(distances_mat[i][0][0] * scale_w), int(distances_mat[i][0][1] * scale_h)), (int(distances_mat[i][1][0] * scale_w), int(distances_mat[i][1][1]* scale_h)), yellow, 2)
-            
-    for i in range(len(distances_mat)):
-        
-        if distances_mat[i][2] == 2:
-            if (distances_mat[i][0] not in r) and (distances_mat[i][0] not in g) and (distances_mat[i][0] not in y):
-                g.append(distances_mat[i][0])
-            if (distances_mat[i][1] not in r) and (distances_mat[i][1] not in g) and (distances_mat[i][1] not in y):
-                g.append(distances_mat[i][1])
-    
-    for i in bottom_points:
-        blank_image = cv2.circle(blank_image, (int(i[0]  * scale_w), int(i[1] * scale_h)), 5, green, 10)
-    for i in y:
-        blank_image = cv2.circle(blank_image, (int(i[0]  * scale_w), int(i[1] * scale_h)), 5, yellow, 10)
-    for i in r:
-        blank_image = cv2.circle(blank_image, (int(i[0]  * scale_w), int(i[1] * scale_h)), 5, red, 10)
-        
-
-    return blank_image
     
 # Function to draw bounding boxes according to risk factor for humans in a frame and draw lines between
 # boxes according to risk factor between two humans.
 # Red: High Risk
 # Yellow: Low Risk
 # Green: No Risk
-def social_distancing_view(frame, distances_mat, boxes, risk_count, objects):
+def distancing_view(frame, distances_mat, boxes, risk_count):
     
     red = (0, 0, 255)
     green = (0, 255, 0)
     yellow = (0, 255, 255)
-    #cv2.imshow ("Frame 1", frame)
-    #cv2.waitKey(0)
-    #for (objectID, centroid) in objects.items():
-     #           text = "ID {}".format(objectID)
-      #          cv2.putText(frame, text, (centroid[0] - 10, centroid[1] - 10),
-       #             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
-        #        cv2.circle(frame, (centroid[0], centroid[1]), 4, (0, 0, 0), -1)
+
     
     for i in range(len(boxes)):
 

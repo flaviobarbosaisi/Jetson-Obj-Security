@@ -1,5 +1,0 @@
-classes = 2
-train = /workspace/Darknet/Teste/train.txt
-valid = /workspace/Darknet/Teste/test.txt
-names = /workspace/Darknet/Teste/classes.names
-backup = /workspace/Darknet/Teste/backup
