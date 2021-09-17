@@ -39,7 +39,7 @@ YOLOv4 training took place on a dgx A100. 827 images were used for training and 
 
 ## Results and conclusion
 
-The video results can be found [here](https://drive.google.com/drive/folders/19S-Pk4NGvOWUvMeMYiI6Trd-CuXnp9gJ), highlighting the GPU usage. The results proved to be efficient for the proposed application, as tt was possible to absorb an immense amount of knowledge about computer vision and machine learning.
+The video results can be found [here](https://drive.google.com/drive/folders/19S-Pk4NGvOWUvMeMYiI6Trd-CuXnp9gJ), highlighting the GPU usage. The results proved to be efficient for the proposed application, as it was possible to absorb an immense amount of knowledge about computer vision and machine learning.
 
 ## Usage
 
