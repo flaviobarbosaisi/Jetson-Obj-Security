@@ -11,6 +11,6 @@ In the folder [DATA](https://drive.google.com/drive/folders/1fPqe5gvea7AtnlgAdFL
 
 ## Project Set up
 
-1. The screen, mouse and keyboards were used for calibration and visualization.
+   - The screen, mouse and keyboards were used for calibration and visualization.
    - The first step was to set up jetson with JetPack following the instructions from the Jetson AI Fundamentals course (First Time Setup with JetPack).
-     - The second step was to compile OpenCV with CUDA to fully access the GPU in inference time. I followed the script from this [github](https://github.com/mdegans/nano_build_opencv/blob/master/build_opencv.sh)
+   - The second step was to compile OpenCV with CUDA to fully access the GPU in inference time. I followed the script from this [github](https://github.com/mdegans/nano_build_opencv/blob/master/build_opencv.sh)
