@@ -2,7 +2,7 @@
 
 ## Project Ideia
 
-The idea of this project is to develop a monitoring system for an object of interest through a Logitech C920E Business FullHD 1080p 960-001360 webcam  and a NVIDIA Jetson Xavier™ NX. The system should classify as high risk if someone gets within 1 meter of the object, medium risk between 1 and 1.25 meters and safe at a distance greater than 1.25 meters. We can imagine that this is a valuable or even dangerous object that you want to monitor.
+The idea of this project is to develop a monitoring system for an object of interest through a Logitech C920E Business FullHD 1080p 960-001360 webcam and a NVIDIA Jetson Xavier™ NX. The system should classify as high risk if someone gets within 1 meter of the object, medium risk between 1 and 1.25 meters, and safe at a distance greater than 1.25 meters. We can imagine that this is a valuable or even dangerous object that you want to monitor.
 
 <p align="center">
  <img src="https://github.com/flaviobarbosaisi/Jetson-Obj-Security/blob/main/data/result_safe.jpeg" width="350" height="280">
@@ -36,7 +36,7 @@ In the folder [data](https://drive.google.com/drive/folders/1fPqe5gvea7AtnlgAdFL
 
 ## Dataset creation
 
-The dataset was created with 10 videos of me walking around and moving the object of interest through the region of interest (ROI). As we are still in a pandemic period in my country, the class “person” were made only considering me, but this can be easily expanded with new videos and expansion of the dataset for better generalization of the "person" class. [Labelimg](https://github.com/tzutalin/labelImg) was used to create the labels.
+The dataset was created with 10 videos of me walking around and moving the object of interest through the region of interest (ROI). As we are still in a pandemic period in my country, the class “person” was made only considering me, but this can be easily expanded with new videos and expansion of the dataset for better generalization of the "person" class. [Labelimg](https://github.com/tzutalin/labelImg) was used to create the labels.
 
 
 ![alt text](https://github.com/flaviobarbosaisi/Jetson-Obj-Security/blob/main/data/dataset.jpeg)
@@ -51,7 +51,7 @@ The video results can be found [here](https://drive.google.com/drive/folders/19S
 
 ## Usage
 
-Download the yolo weights from [here](https://drive.google.com/file/d/1z_uqgPwsyQbfoNpk4vHIo8IXTZcSX9wr/view?usp=sharing) and place in the "**model**" folder. Modify the *FILE_PATH* variable to zero to access the usb webcam and *SUB_PATH* to the model directory. In case of testing with recorded video, modify *FILE_PATH* variable to the specific video path. There is a sample [here]().
+Download the YOLO weights from [here](https://drive.google.com/file/d/1z_uqgPwsyQbfoNpk4vHIo8IXTZcSX9wr/view?usp=sharing) and place in the "**model**" folder. Modify the *FILE_PATH* variable to zero to access the usb webcam and *SUB_PATH* to the model directory. In case of testing with recorded video, modify *FILE_PATH* variable to the specific video path. There is a sample [here](https://drive.google.com/drive/folders/1fPqe5gvea7AtnlgAdFLNLum493Efg4Wu?usp=sharing).
 
 
 
