@@ -6,7 +6,7 @@ The idea of this project is to develop a monitoring system for an object of inte
 
 <p align="center">
  <img src="https://github.com/flaviobarbosaisi/Jetson-Obj-Security/blob/main/data/result_safe.jpeg" width="350" height="280">
- &nbsp &nbsp &nbsp
+ &nbsp &nbsp &nbsp &nbsp &nbsp
  <img src="https://github.com/flaviobarbosaisi/Jetson-Obj-Security/blob/main/data/result_danger.jpeg" width="350" height="280">
 </p>
 
@@ -23,6 +23,7 @@ In the folder [data](https://drive.google.com/drive/folders/1fPqe5gvea7AtnlgAdFL
 
 <p align="center">
   <img src="https://github.com/flaviobarbosaisi/Jetson-Obj-Security/blob/main/data/setup1.jpeg" width="256" height="256">
+ &nbsp &nbsp &nbsp &nbsp &nbsp
   <img src="https://github.com/flaviobarbosaisi/Jetson-Obj-Security/blob/main/data/setup2.jpeg" width="256" height="256">
 </p>
 
