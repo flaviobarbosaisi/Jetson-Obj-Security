@@ -1,7 +1,6 @@
 """Author: Flavio Barbosa"""
 
-from __future__ import division, print_function, absolute_import
-import centroidtracker
+
 import os
 import warnings
 import cv2
@@ -9,21 +8,16 @@ import numpy as np
 import plot
 import imutils
 import time
-from datetime import datetime
 
 
 
 warnings.filterwarnings('ignore')
 
-#pylint large_objects_lint.py --extension-pkg-whitelist=cv2
-
-
-
 
 class LargeObjects:
     """class to monitor the approach of people to a particular object"""
     def __init__(self, video_path):
-        self.init_path = None
+        #self.init_path = None
         self.video_path = video_path
         self.model = None
         self.calibra = 0
@@ -33,11 +27,11 @@ class LargeObjects:
         self.rects = []
 
 
-    def load_models(self, init_path):
+    def load_models(self, init_path ):
         """function to load models. It has as input the configuration files (cfg and weights) and the input size"""
         self.init_path = init_path
-        cfg_path_placa = "yolov4.cfg"
-        weights_path_placa = "yolov4_last.weights"
+        cfg_path_placa = init_path+"yolov4.cfg"
+        weights_path_placa = init_path+"yolov4_last.weights"
         input_size_placa = (416, 416)
         self.model = self.load_yolo_detectors(cfg_path_placa, weights_path_placa,
                                               input_size_placa)
@@ -124,14 +118,14 @@ class LargeObjects:
         dst = np.float32([[0, height], [width, height], [width, 0], [0, 0]])
         prespective_transform = cv2.getPerspectiveTransform(src, dst)
 
-        # using next 4 points for horizontal and vertical unit length(in this case 180 cm)
+        # using next 4 points for horizontal and vertical unit length(in this case 170 cm)
         pts = np.float32(np.array([points[4:7]]))
         warped_pt = cv2.perspectiveTransform(pts, prespective_transform)[0]
 
         # since bird eye view has property that all points are equidistant
         #in horizontal and vertical direction. distance_w and distance_h
-        #will give us 180 cm distance in both horizontal and vertical
-        #directions (how many pixels will be there in 180cm length in
+        #will give us 170 cm distance in both horizontal and vertical
+        #directions (how many pixels will be there in 170cm length in
         #horizontal and vertical direction of birds eye view),
         # which we can use to calculate distance between two humans
         # in transformed view or bird eye view
@@ -157,7 +151,6 @@ class LargeObjects:
             if confidences[i] > 0.3:
                 box = boxes[i]
                 (start_x, start_y, width, height) = box.astype("int")
-               # (centerX, centerY, width, height) = box.astype("int")
                 x = start_x
                 y = start_y
 
@@ -165,7 +158,7 @@ class LargeObjects:
                 endX = startX + sizeX
                 endY = startY + sizeY
                 box_rect = startX, startY, endX, endY
-                self.rects.append (box_rect)
+                self.rects.append(box_rect)
 
                 ### Person
                 if classes[i] == 0:
@@ -181,15 +174,8 @@ class LargeObjects:
                 cv2.rectangle(self.frame_cp, (startX, startY), (endX, endY),
             (0, 255, 0), 2)
 
-        objects = self.ct.update(self.rects)
 
-        for (objectID, centroid) in objects.items():
-                text = "ID {}".format(objectID)
-                cv2.putText(self.frame_cp, text, (centroid[0] - 10, centroid[1] - 10),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2)
-                cv2.circle(self.frame_cp, (centroid[0], centroid[1]), 4, (0, 0, 0), -1)
-
-        return boxes_p, boxes_o, allboxes, objects
+        return boxes_p, boxes_o, allboxes
 
     @staticmethod
     def get_transformed_points(boxes, prespective_transform):
@@ -198,8 +184,6 @@ class LargeObjects:
         bottom_points = []
         for box in boxes:
             pnts = np.array([[[int(box[0]+(box[2]*0.5)), int(box[1]+box[3])]]], dtype="float32")
-            #pnts = np.array([[[int(box[0]+(box[2]*0.5)),int(box[1]+(box[3]*0.5))]]] ,
-            # dtype="float32")
             bd_pnt = cv2.perspectiveTransform(pnts, prespective_transform)[0][0]
             pnt = [int(bd_pnt[0]), int(bd_pnt[1])]
             bottom_points.append(pnt)
@@ -223,7 +207,7 @@ class LargeObjects:
     def get_distances2(self, boxes1, boxes2, object_points, person_points, distance_w, distance_h):
         """The calculated distances allow assigning risk levels according to proximity.
         If the person approaches 100 cm or less from the object, the high risk level is attributed,
-         between 100 and 120 cm, medium risk and above this distance,
+         between 100 and 125 cm, medium risk and above this distance,
          it was considered that there are no risks."""
         distance_mat = []
         bxs = []
@@ -233,7 +217,6 @@ class LargeObjects:
             flag = 0
             for j in range(len(object_points)):
                 dist = self.cal_dis(person_points[i], object_points[j], distance_w, distance_h)
-                #dist = int((dis*180)/distance)
                 if dist <= 100 and flag != 1:
                     closeness = 0
                     flag = 1
@@ -276,71 +259,55 @@ class LargeObjects:
     def risk_analysys(self, boxes_p, boxes_o,
                       distance_w, distance_h, perspective_transform):
 
-        """clasee Granulometria"""
+        """This function perform the risk analysis based on the transformed points"""
         person_points = self.get_transformed_points(boxes_p, perspective_transform)
         object_points = self.get_transformed_points(boxes_o, perspective_transform)
 
-        # Here we will calculate distance between transformed points(humans)
-       # distances_mat, _ = self.get_distances(boxes_p, boxes_o, object_points,
-        #                                      person_points, distance_w, distance_h)
+        # Here we will calculate distance between transformed points(humans and object)
 
 
         distances_mat, bxs_mat = self.get_distances2(boxes_p, boxes_o, object_points,
                                               person_points, distance_w, distance_h)
 
 
-
+        #count the number of people in each risk level
         risk_count2 = self.get_count2(distances_mat, boxes_p, boxes_o)
 
         num_lr, num_mr, num_hr = risk_count2
 
 
         if ((len(boxes_o) < 1) or (len(boxes_p) < 1)):
-            #num_lr, num_mr, num_hr = [len(boxes_p), 0, 0 ] ARRUMAR
-            num_lr, num_mr, num_hr = [0, 0, 0 ]
+            num_lr, num_mr, num_hr = [0, 0, 0]
 
 
 
         return num_lr, num_mr, num_hr, distances_mat, bxs_mat, risk_count2
 
-   # @staticmethod
-    #def get_scale(width, height):
-        """clasee Granulometria"""
-     #   dis_w = 400
-      #  dis_h = 600
-
-        return float(dis_w/width), float(dis_h/height)
+       # return float(dis_w/width), float(dis_h/height)
 
 
     def run(self):
-        """clasee Granulometria"""
-        cap = cv2.VideoCapture(0)
-        time.sleep(0.1) 
+        """Function to organize the code flow"""
 
-        #height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-        #width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-        #fps = int(cap.get(cv2.CAP_PROP_FPS))
+        #if camera/webcam
+        #cap = cv2.VideoCapture(0)
+        #if video
+        cap = cv2.VideoCapture(FILE_PATH)
+        #
+        time.sleep(0.1)
 
-        #fpsv = 0.0
-        #fpsv = FPS().start()
 
-        # Set scale for birds eye view
-        # Bird's eye view will only show ROI
-        #scale_w, scale_h = get_scale(width, height)
+        #fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 
-        fourcc = cv2.VideoWriter_fourcc(*'mp4v') 
-       
+        #Count the bumber of frames received and variable to detect each X frames. Using Jetson Xavier, it is possible
+        #to run in real time without skipping frames
         skip_frames = 1
-        total_frames = 0
-        count = 0
-        count_incid = 0
-        self.ct = centroidtracker.CentroidTracker()
-        writer = None
 
-        #height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-        #width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-       # fps = int(cap.get(cv2.CAP_PROP_FPS))
-       #  scale_w, scale_h = self.get_scale(width, height)
+        total_frames = 0
+
+        #to record videos
+        #writer = None
+
         # Process each frame, until end of video
         while cap.isOpened():
             ret, self.frame = cap.read()
@@ -350,53 +317,50 @@ class LargeObjects:
             if not ret:
                 print("end of the video file...")
                 break
+
             self.frame = imutils.resize(self.frame, width=800)
-            #if writer == None:
-             #   writer = cv2.VideoWriter("D:/ISI/GD/jetson/Codigos/distancing.avi", fourcc, fps, (width, height))
-
-            
-
 
             self.frame_cp = self.frame.copy()
 
             height = self.frame.shape[0]
             width = self.frame.shape[1]
 
+
+            #check if the system is calibrated, it is mandatory a calibration before usage
             if self.calibra == 0:
                 points = self.calibra_points()
 
+            #calculates homography for the Bird's Eye View Transform
             dist_w, dist_h, perspective = self.homography(points, height, width)
-           # rgb = cv2.cvtColor(self.frame, cv2.COLOR_BGR2RGB)
-            if total_frames % skip_frames == 0:
-                boxes_p, boxes_o, allboxes, objects = self.detect_person_object(self.frame)
-                #oi, joprint ("A")
-               # cv2.imshow("IMAGEM", self.frame)
-                #cv2.waitKey(0)
 
+            #The trained YOLOv4 is used for detecting the object of interest and people in the ROI
+            if total_frames % skip_frames == 0:
+                boxes_p, boxes_o, allboxes = self.detect_person_object(self.frame)
+
+
+            #An analysis is perfomed to check if there is someone near the object of interest
             num_lr, num_mr, num_hr, distances_mat, bxs_mat, risk_count2 = self.risk_analysys(boxes_p, boxes_o,
                                                         dist_w, dist_h,
                                                         perspective)
 
-            riks_plot =  num_hr, num_mr, num_lr
-            #print (riks_plot)
+            risk_plot =  num_hr, num_mr, num_lr
 
-            #print(num_hr, num_mr, num_lr)
             frame1 = np.copy(self.frame)
-            var1= 0
-            img = plot.social_distancing_view(frame1, bxs_mat, allboxes, riks_plot, objects)
+
+            #Plots on the screan the distance analysis result
+            img = plot.distancing_view(frame1, bxs_mat, allboxes, risk_plot)
+            # parameters for video recording
             fshape = img.shape
             height = fshape[0]
             width = fshape[1]
-            fps = 20
+            fps = int(cap.get(cv2.CAP_PROP_FPS))
 
-            if writer == None:
-                writer = cv2.VideoWriter("/home/ctg/Testes/Codigos/videos/distancing_jetson_online22222.mp4", fourcc, fps, (width, height))
+            #if writer == None:
+            #    writer = cv2.VideoWriter("path/distancing_jetson_online22222.mp4", fourcc, fps, (width, height))
 
-            writer.write(img)
+            #writer.write(img)
 
-           # if total_frames % skip_frames == 0:
-            #    if count != 0:
-             #       cv2.imwrite(output_dir+"frame%d.jpg" % count, img)
+            #Frame counting
             total_frames += 1
 
             cv2.imshow("Frame", img)
@@ -406,28 +370,24 @@ class LargeObjects:
                 break
 
 
-
-
-        writer.release()        
+        writer.release()
         cap.release()
         cv2.destroyAllWindows()
         print ("finishing...")
 
 
 
-
-       # return num_HR, num_MR, num_LR
-
-
 if __name__ == '__main__':
 
 
+    #FILE_PATH = "path/to/Jetson-Obj-Security/data/sample_test/sample.mp4" #for video
+    #FILE_PATH = 0 #for webcam
 
-    FILE_PATH = 'output.mp4'
 
     RISK_ANALYSYS = LargeObjects(FILE_PATH)
 
-    SUB_PATH = "/home/ctg/Testes/Codigos/"
+
+   # SUB_PATH = "path/to/Jetson-Obj-Security/models/"
     RISK_ANALYSYS.load_models(SUB_PATH)
 
     RISK_ANALYSYS.run()
