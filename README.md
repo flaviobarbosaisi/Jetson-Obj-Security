@@ -7,7 +7,7 @@ The idea of this project is to develop a monitoring system for an object of inte
 <p align="center">
  <img src="https://github.com/flaviobarbosaisi/Jetson-Obj-Security/blob/main/data/result_safe.jpeg" width="525" height="420">
  
- <img src="https://github.com/flaviobarbosaisi/Jetson-Obj-Security/blob/main/data/result_danger.jpeg" width="416" height="416">
+ <img src="https://github.com/flaviobarbosaisi/Jetson-Obj-Security/blob/main/data/result_danger.jpeg" width="525" height="420">
 </p>
 
 
